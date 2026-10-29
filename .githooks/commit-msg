@@ -1,0 +1,7 @@
+#!/bin/sh
+# Refuses commit messages that contain a word from the private list (see scripts/preflight.sh). Enable with:  git config core.hooksPath .githooks
+PRIVATE="${PRIVATE_PATTERNS:-$HOME/.config/private-patterns}"
+if [ -f "$PRIVATE" ] && grep -q -i -E -f "$PRIVATE" "$1"; then
+    echo "commit-msg: the message contains a word from your private list ($PRIVATE); please remove it." >&2
+    exit 1
+fi

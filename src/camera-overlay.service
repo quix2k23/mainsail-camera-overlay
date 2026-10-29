@@ -1,0 +1,14 @@
+[Unit]
+Description=Webcam MJPEG proxy that draws print progress on the video (camera-overlay)
+After=network.target moonraker.service
+
+[Service]
+User=@USER@
+Environment=OVERLAY_PORT=@PORT@
+Environment=OVERLAY_UPSTREAM_PORT=@UPSTREAM_PORT@
+ExecStart=/usr/bin/python3 @HOME@/camera_overlay.py
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
